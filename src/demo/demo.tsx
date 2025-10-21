@@ -150,7 +150,7 @@ const App = () => {
 
         <PolygonRequestAnnotation />
 
-        <div className="flex gap-2 my-4">
+        <div className="actions hide flex gap-2 my-4">
           <button
             className="p-2 bg-blue-500 text-white hover:bg-blue-400"
             onClick={() => setPagingEnabled((prev) => !prev)}
@@ -180,7 +180,7 @@ const App = () => {
             // },
 
             // Row
-            container: 'flex gap-1 overflow-x-auto',
+            container: 'actions hide flex gap-1 overflow-x-auto',
             row: 'flex gap-2 border border-gray-200 flex-none p-2 m-2',
             img: 'max-h-[128px] max-w-[128px] object-contain h-full w-full',
             selected: {
@@ -313,7 +313,7 @@ function PolygonRequestAnnotation() {
   }
 
   return (
-    <div className="flex flex-row gap-2">
+    <div className="actions hide flex flex-row gap-2">
       <button
         className="p-2 bg-blue-500 text-white hover:bg-blue-400"
         onClick={() => requestAnnotation({ type: 'box', bounds, arguments: { customData: 'Box' } })}
