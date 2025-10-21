@@ -136,6 +136,7 @@ const App = () => {
         annotations={
           <>
             <CanvasAnnotations />
+            
             <SearchHighlights />
           </>
         }
@@ -147,9 +148,8 @@ const App = () => {
         }}
       >
         <Authenticate />
-
         <PolygonRequestAnnotation />
-
+        
         <div className="actions hide flex gap-2 my-4">
           <button
             className="p-2 bg-blue-500 text-white hover:bg-blue-400"

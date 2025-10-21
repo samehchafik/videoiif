@@ -40,7 +40,7 @@ export function ComplexTimelineControls() {
   }, [isReady]);
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', opacity: isReady ? 1 : 0.5 }}>
+    <div className='controls' style={{ display: 'flex', alignItems: 'center', opacity: isReady ? 1 : 0.5 }}>
       <button
         disabled={playRequested}
         onClick={() => {
