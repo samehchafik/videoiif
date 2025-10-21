@@ -21,3 +21,40 @@ body{
 #atlas-floating-ui {
     margin-bottom: 4em;
 }
+
+
+/**
+* Tablet portrait
+*/
+
+@media only screen and (max-width: 768px) {
+.atlas-overlay > div {
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+}
+}
+
+/**
+* Phone landscape ONLY
+*/
+
+@media only screen and (max-width: 850px) and (orientation:landscape) {
+
+}
+
+/**
+*    Phones
+*/
+
+@media screen and (max-width: 500px) {
+
+}
+
+@media only screen and (max-width: 421px) {
+
+}
