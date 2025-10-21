@@ -1,0 +1,20 @@
+import { useVault } from './useVault';
+import { IIIFStore, Vault } from '@iiif/helpers/vault';
+import { useEffect, useState } from 'react';
+
+export function useVaultSelector<T>(selector: (state: IIIFStore, vault: Vault) => T, deps: any[] = []) {
+  const vault = useVault();
+  const [selectedState, setSelectedState] = useState<T>(() => selector(vault.getState(), vault));
+
+  useEffect(() => {
+    return vault.subscribe(
+      (s) => selector(s, vault),
+      (s) => {
+        setSelectedState(s);
+      },
+      false
+    );
+  }, deps);
+
+  return selectedState as T;
+}
