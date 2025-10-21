@@ -5,13 +5,16 @@ body{
     flex-direction: column;
     position: relative !important;
 }
+.atlas-container, .atlas, .atlas-canvas, .atlas-overlay {
+    height: 90vh !important;
+}
+
 .atlas-overlay {
     position: absolute !important;
     overflow: hidden;
 }
 .atlas-overlay > div {
     transform: none !important;
-    width: 40% !important;
     height: auto !important;
     aspect-ratio: 16/9 !important;
     bottom: 0 !important;
@@ -20,6 +23,58 @@ body{
 }
 #atlas-floating-ui {
     margin-bottom: 4em;
+}
+
+
+/****************************************/
+/****************************************/
+
+/**
+* Dark mode support
+*/
+
+@media (prefers-color-scheme: dark) {
+
+}
+
+
+/****************************************/
+/*			Responsive breaking points			*/
+/****************************************/
+
+/**
+* wide Screen
+*/
+@media only screen and (min-width: 1600px) {
+    .atlas-overlay > div {
+        width: 35% !important;
+    }
+}
+
+@media only screen and (max-width: 1599px) {
+    .atlas-overlay > div {
+        width: 45% !important;
+    }
+}
+
+/**
+* computer
+*/
+
+@media only screen and (max-width: 1199px) {
+    .atlas-overlay > div {
+        width: 55% !important;
+    }
+}
+
+/**
+* Small computer, Tablet landscape
+*/
+
+@media only screen and (max-width: 1024px) {
+       .atlas-overlay > div {
+        width: 65% !important;
+    }
 }
 
 
