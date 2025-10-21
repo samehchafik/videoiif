@@ -1,3 +1,23 @@
 body{
-    background-color: aqua;
+    background-color: #eee;
+}
+.atlas {
+    flex-direction: column;
+    position: relative !important;
+}
+.atlas-overlay {
+    position: absolute !important;
+    overflow: hidden;
+}
+.atlas-overlay > div {
+    transform: none !important;
+    width: 40% !important;
+    height: auto !important;
+    aspect-ratio: 16/9 !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+}
+#atlas-floating-ui {
+    margin-bottom: 4em;
 }
