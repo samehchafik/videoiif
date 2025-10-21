@@ -1,0 +1,1 @@
+http://localhost:3004/#manifest=https://neuma.huma-num.fr/rest/collections/all%3Acollabscore%3Aroyaumont%3Apelleas_2_1/_sources/sync/_file/
