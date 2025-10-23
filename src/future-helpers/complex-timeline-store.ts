@@ -258,7 +258,7 @@ export function createComplexTimelineStore({
       const isRunning = get().clockRunning;
       if (!isRunning) {
         _startClock();
-        syncClock = setInterval(_syncClock, 500);
+        //syncClock = setInterval(_syncClock, 500);
       }
       set({
         clockRunning: true,

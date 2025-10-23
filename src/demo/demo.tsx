@@ -22,7 +22,10 @@ import { LocaleString } from '../utility/i18n-utils';
 import type { SimpleViewerContext } from '../viewers/SimpleViewerContext.types';
 import { MediaControls } from './media-controls';
 import { SimpleViewerControls, ViewerControls } from './viewer-controls';
+
 import './demo.css';
+import '../styles/index.css'
+
 import { useStore } from 'zustand';
 import { useAtlasStore } from '../canvas-panel/context/atlas-store-provider';
 import { ImageService } from '../components/ImageService';

@@ -36,8 +36,8 @@ function NotAuthorised({
   return (
     <HTMLPortal
       target={{
-        x: 0,
-        y: 0,
+        x: -1,
+        y: -1,
         width: image.target?.spatial.width,
         height: image.target?.spatial.height,
       }}

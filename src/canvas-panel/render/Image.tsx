@@ -76,7 +76,7 @@ export function RenderImage({
           <world-image
             onClick={onClick}
             uri={image.id}
-            target={{ x: 0, y: 0, width: imageWidth, height: imageHeight }}
+            target={{ x: -1, y: -1, width: imageWidth, height: imageHeight }}
             display={
               imageWidth && imageHeight
                 ? {
@@ -93,6 +93,7 @@ export function RenderImage({
         <Fragment key="service">
           <RenderImageService
             image={image as any}
+            
             thumbnail={thumbnail}
             crop={crop}
             enableSizes={enableSizes}

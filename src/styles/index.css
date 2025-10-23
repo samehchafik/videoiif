@@ -117,3 +117,7 @@ body{
 .actions.hide{
     display: none;
 }
+
+.controls{
+    margin-bottom: 3rem;
+}

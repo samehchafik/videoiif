@@ -29,7 +29,7 @@ import { PlaceholderCanvas } from './render/PlaceholderCanvas';
 import { Video, VideoHTML } from './render/Video';
 import { Viewer } from './Viewer';
 
-import '../styles/index.css'
+
 
 export interface CanvasPanelProps {
   manifest: string;
