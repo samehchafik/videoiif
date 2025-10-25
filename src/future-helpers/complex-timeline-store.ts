@@ -31,7 +31,7 @@ export interface ComplexTimelineStore extends MediaPlayerActions {
   stopClock: () => void;
 
   // Element management
-  setElement: (id: string, element: HTMLVideoElement | HTMLAudioElement) => void;
+  setElement: (id: string, element: HTMLVideoElement | HTMLAudioElement|HTMLIFrameElement) => void;
   removeElement: (id: string) => void;
 
   applyKeyframes(newIdx: number, keyframes: TimelineKeyframe[]): void;
@@ -108,7 +108,7 @@ export function createComplexTimelineStore({
 }) {
   const $ev = mitt<ComplexTimelineEvents>();
 
-  const elements: Record<string, HTMLVideoElement | HTMLAudioElement> = {};
+  const elements: Record<string, HTMLVideoElement | HTMLAudioElement | HTMLIFrameElement> = {};
   const interactiveElements = {
     progress: null as HTMLDivElement | null,
     currentTime: null as HTMLDivElement | null,
@@ -182,7 +182,7 @@ export function createComplexTimelineStore({
       // Prime
       const primeElement = state.currentPrime;
       if (primeElement) {
-        const $el = elements[primeElement.id] as HTMLVideoElement | HTMLAudioElement;
+        const $el = elements[primeElement.id] as HTMLVideoElement | HTMLAudioElement |HTMLIFrameElement;
         if ($el) {
           if ($el.paused) {
             primeTime += dt;
@@ -227,7 +227,7 @@ export function createComplexTimelineStore({
     }
   };
 
-  const bindElementEvents = (element: HTMLVideoElement | HTMLAudioElement, id: string) => {
+  const bindElementEvents = (element: HTMLVideoElement | HTMLAudioElement|HTMLIFrameElement, id: string) => {
     // This is for handling the media events on the navtive elements.
     // Primarily, when the media is ready to play, when it's buffering.
     // Also if media is paused, then we check if WE caused it to pause, or if it's a user action.

@@ -9,24 +9,68 @@ import { useOverlay } from '../context/overlays';
 import { RenderAnnotation } from './Annotation';
 import { RenderAnnotationPage } from './AnnotationPage';
 import { RenderImage } from './Image';
+import { VideoYouTubeHTML } from './VideoYouTube';
 import { RenderTextualContent } from './TextualContent';
 import { useAtlas /* ou useAtlasStore */ } from '@atlas-viewer/atlas';
 import { AtlasContext } from '@atlas-viewer/atlas';
+import { createYouTubeHandle } from './YouTubeHandle';
 
 
+const YouTubeItemImpl = React.memo(
+  function YouTubeItemImpl({
+    item,
+    visible,
+    store,
+  }: { item: any; visible: boolean; store: ReturnType<typeof createComplexTimelineStore>['store'] }) {
+    const iframeRef = React.useRef<HTMLIFrameElement | null>(null);
 
-function panScreenByPx( dxPx: number) {
+    React.useEffect(() => {
+      if (!iframeRef.current) return;
+      const handle = createYouTubeHandle(iframeRef.current);
+      store.getState().setElement(item.annotationId, handle as any);
+    }, [item.annotationId, store]);
 
-  //const atlasStore = useAtlas();
-  const preset = React.useContext(AtlasContext);
-  if (!preset) return null;
-  const r = preset.runtime;
-  const scale = r.getScaleFactor();          // px viewer -> unités monde
-  const dxWorld = dxPx / scale; 
-  
-  r.setViewport({ x: r.x + dxWorld, y: r.y });
-  
-}
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          opacity: visible ? 1 : 0,
+          pointerEvents: visible ? 'auto' : 'none',
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <VideoYouTubeHTML element={iframeRef} media={item} playPause={() => {}} />
+          <button
+          type="button"
+          aria-label="Play/Pause"
+          onClick={(e) => {
+            e.stopPropagation();
+            store.getState().playPause();
+          }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'transparent',
+            border: 0,
+            padding: 0,
+            margin: 0,
+            cursor: 'pointer',
+            zIndex: 20
+          }}
+        />
+      </div>
+    );
+  },
+  (prev, next) =>
+    prev.visible === next.visible &&
+    prev.item?.annotationId === next.item?.annotationId
+);
+
+// alias pratique
+const YouTubeItem = YouTubeItemImpl;
+
 
 export function RenderComplexTimeline({
   strategy,
@@ -125,6 +169,8 @@ export function RenderComplexTimeline({
     [isReady],
   );
 
+  
+
   return (
     <>
       {strategy.items.map((item) => {
@@ -135,6 +181,9 @@ export function RenderComplexTimeline({
           image={item}
           id={item.annotationId} />;
       })}
+
+      
+
       {strategy.items.map((item, i) => {
         if (item.type !== 'Text') return null;
         if (!visibleElements[item.annotationId]) return null;
@@ -144,16 +193,30 @@ export function RenderComplexTimeline({
       {strategy.items.map((item, i) => {
         if (item.type !== 'Video') return null;
         //if (!item.target.spatial) return null;
+        const url = (item as any).url || item.annotation?.body?.[0]?.id || '';
+        const isYT = /youtube\.com|youtu\.be/.test(url);
         
-        return (
-          <HTMLPortal key={i} target={item.target.spatial as any}>
-            <video
-              ref={refFor(item.annotationId)}
-              src={item.url}
-              style={{ height: '100%', width: '100%', opacity: visibleElements[item.annotationId] ? 1 : 0 }}
+        if(isYT){
+          const visible = !!visibleElements[item.annotationId];
+          return <HTMLPortal key={i} target={item.target.spatial as any}>
+            <YouTubeItem
+              store={store} 
+              item={item}
+              visible={visible}  
             />
           </HTMLPortal>
-        );
+        }
+        else { 
+          return (
+            <HTMLPortal key={i} target={item.target.spatial as any}>
+              <video
+                ref={refFor(item.annotationId)}
+                src={item.url}
+                style={{ height: '100%', width: '100%', opacity: visibleElements[item.annotationId] ? 1 : 0 }}
+              />
+            </HTMLPortal>
+          );
+        }
       })}
       {strategy.items.map((item, i) => {
         if (item.type !== 'Sound') return null;
