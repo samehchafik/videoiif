@@ -79,9 +79,38 @@ export function RenderComplexTimeline({
   strategy: ComplexTimelineStrategy;
   children?: React.ReactNode;
 }) {
-  const { store } = useMemo(() => {
-    return createComplexTimelineStore({ complexTimeline: strategy });
-  }, [strategy]);
+  const storeRef = React.useRef<ReturnType<typeof createComplexTimelineStore> | null>(null);
+const lastKeyRef = React.useRef<string | null>(null);
+
+// une clé légère pour détecter un vrai changement pertinent
+const stratKey = React.useMemo(
+  () => JSON.stringify({
+    dur: strategy.duration,
+    k: strategy.keyframes?.length ?? 0,
+    items: strategy.items?.length ?? 0,
+  }),
+  [strategy]
+);
+
+if (!storeRef.current) {
+  storeRef.current = createComplexTimelineStore({ complexTimeline: strategy });
+  lastKeyRef.current = stratKey;
+} else if (lastKeyRef.current !== stratKey) {
+  // ⚠️ même instance de store, on met l’état à jour
+  const api = storeRef.current.store;
+  api.setState({
+    complexTimeline: strategy,
+    duration: strategy.duration,
+    // on remet le curseur de timeline proprement
+    visibleElements: {},
+    currentPrime: null,
+    nextKeyframeIndex: 0,
+  });
+  api.getState().setTime(0);
+  lastKeyRef.current = stratKey;
+}
+
+const store = storeRef.current.store; 
 
   const isReady = useStore(store, (s) => s.isReady);
   const visibleElements = useStore(store, (s) => s.visibleElements);
@@ -112,9 +141,14 @@ export function RenderComplexTimeline({
 
       return () => (mql as any)[rem]('change', onChange);
     }, []);
+  
+  const hasVisibleVideo = useMemo(
+    () => strategy.items.some(i => i.type === 'Video' && !!visibleElements[i.annotationId]),
+    [strategy.items, visibleElements]
+  );
 
   useEffect(() => {
-    if (!isDesktop || !runtime) return;
+    if (!isDesktop || !runtime || !hasVisibleVideo) return;
     const id = setInterval(() => {
       clearInterval(id)
       panScreenByPx(260);
@@ -131,10 +165,7 @@ export function RenderComplexTimeline({
       }
     };
   }
-  const hasVisibleVideo = useMemo(
-    () => strategy.items.some(i => i.type === 'Video' && !!visibleElements[i.annotationId]),
-    [strategy.items, visibleElements]
-  );
+  
 
   useEffect(() => {
     if (typeof document === 'undefined') return;      // sécurité SSR

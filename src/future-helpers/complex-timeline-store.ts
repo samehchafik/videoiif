@@ -350,6 +350,7 @@ export function createComplexTimelineStore({
       }
 
       set({ isPlaying: true });
+      
     },
     pause() {
       const $state = get();

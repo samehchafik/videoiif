@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { useComplexTimeline } from '../context/ComplexTimelineContext';
 import { formatTime } from '../hooks/useSimpleMediaPlayer';
+import { shallow } from 'zustand/shallow';
 
 export function ComplexTimelineControls() {
   const {
@@ -51,7 +52,7 @@ export function ComplexTimelineControls() {
           }
         }}
       >
-        {isPlaying || playRequested ? 'pause' : 'play'}
+        {isPlaying ? 'pause' : 'play'}
       </button>
       <div ref={currentTime} style={{ padding: '0 20px' }}>
         0:00
