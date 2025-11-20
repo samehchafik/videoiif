@@ -197,8 +197,8 @@ export function createComplexTimelineStore({
       const currentTime = primeTime / 1000;
 
       if (currentTime > state.duration) {
-        store.getState().setTime(0);
         store.setState({ isPlaying: false });
+        store.getState().setTime(0);
         _stopClock();
         updateInteractiveElements(0);
         return;
