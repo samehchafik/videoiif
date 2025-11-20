@@ -198,7 +198,7 @@ export function RenderComplexTimeline({
         
         if(isYT){
           const visible = !!visibleElements[item.annotationId];
-          return <HTMLPortal key={i} target={item.target.spatial as any}>
+          return <HTMLPortal className="video-contenaire" key={i} target={item.target.spatial as any}>
             <YouTubeItem
               store={store} 
               item={item}
@@ -208,8 +208,9 @@ export function RenderComplexTimeline({
         }
         else { 
           return (
-            <HTMLPortal key={i} target={item.target.spatial as any}>
+            <HTMLPortal  className="video-contenaire" key={i} target={item.target.spatial as any}>
               <video
+                className="video"
                 ref={refFor(item.annotationId)}
                 src={item.url}
                 style={{ height: '100%', width: '100%', opacity: visibleElements[item.annotationId] ? 1 : 0 }}
