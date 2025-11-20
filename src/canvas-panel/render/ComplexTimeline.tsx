@@ -117,7 +117,7 @@ export function RenderComplexTimeline({
     if (!isDesktop || !runtime) return;
     const id = setInterval(() => {
       clearInterval(id)
-      panScreenByPx(150);
+      panScreenByPx(260);
     }, 200);
     return () => clearInterval(id);
   }, [isDesktop, runtime, panScreenByPx]);
