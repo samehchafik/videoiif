@@ -80,7 +80,7 @@ export function MediaControls() {
           onChange={(e) => setVolume(Number(e.currentTarget.value))}
         />
 
-        <button onClick={() => toggleMute()}>{isMuted ? 'Mute' : 'Unmute'}</button>
+        <button onClick={() => toggleMute()}>{isMuted ? 'Unmute' : 'Mute'}</button>
       </div>
     </div>
   );
