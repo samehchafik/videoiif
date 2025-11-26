@@ -90,7 +90,7 @@ export function Metadata({
 
   if (config && config.length) {
     return (
-      <table className={classes.container}>
+      <table className={`metadata ${classes.container}`}>
         {tableHeader}
         <tbody>
           {config.map((configItem, idx: number) => {
@@ -137,7 +137,7 @@ export function Metadata({
   }
 
   return (
-    <table className={classes.container}>
+    <table className={`metadata ${classes.container}`}>
       {tableHeader}
       <tbody>
         {metadata && metadata.length

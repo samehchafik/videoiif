@@ -199,11 +199,11 @@ const App = () => {
 
         <SearchAutocomplete />
         <SearchResults />
-
+        
         <CombinedMetadata
           allowHtml={true}
           classes={{
-            container: 'm-4',
+            container: 'm-4 actions hide',
             row: 'border-b border-gray-200',
             label: 'font-bold p-2 text-slate-600',
             value: 'text-sm p-2 text-slate-800',
