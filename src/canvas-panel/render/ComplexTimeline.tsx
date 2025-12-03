@@ -265,7 +265,7 @@ const store = storeRef.current.store;
             key={annotation.id}
             id={annotation.id}
             ignoreTargetId
-            /* style={{ outline: '3px solid red' }} */
+            style={{ outline: '50px solid rgba(78, 86, 228, 0.4)' }}
             className="image-service-annotation"
           />
         );

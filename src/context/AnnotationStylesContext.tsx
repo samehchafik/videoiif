@@ -28,9 +28,9 @@ export function getDefaultAnnotationStyles(): AnnotationStyles['theme'] {
       borderColor: 'rgba(252,0,98, .5)',
     },
     highlighted: {
-      backgroundColor: 'rgba(75, 103, 225, 0.4)',
-      borderWidth: '1px',
-      borderColor: 'rgba(75,103,225,0.99)',
+      backgroundColor: 'rgba(78, 86, 228, 0.2)',
+      borderWidth: '0px',
+      borderColor: 'rgba(78, 86, 228, 0.5)',
     },
     hidden: {
       borderWidth: '0px',
