@@ -245,6 +245,7 @@ const store = storeRef.current.store;
                 ref={refFor(item.annotationId)}
                 src={item.url}
                 style={{ height: '100%', width: '100%', opacity: visibleElements[item.annotationId] ? 1 : 0 }}
+                playsInline
               />
             </HTMLPortal>
           );
