@@ -229,7 +229,7 @@ const store = storeRef.current.store;
         
         if(isYT){
           const visible = !!visibleElements[item.annotationId];
-          return <HTMLPortal className="video-contenaire" key={i} target={item.target.spatial as any}>
+          return <HTMLPortal className="video-container" key={i} target={item.target.spatial as any}>
             <YouTubeItem
               store={store} 
               item={item}
@@ -239,7 +239,7 @@ const store = storeRef.current.store;
         }
         else { 
           return (
-            <HTMLPortal  className="video-contenaire" key={i} target={item.target.spatial as any}>
+            <HTMLPortal  className="video-container" key={i} target={item.target.spatial as any}>
               <video
                 className="video"
                 ref={refFor(item.annotationId)}
